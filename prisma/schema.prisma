@@ -1,0 +1,89 @@
+// Esquema de base de datos — Villarroel & Asociados
+// DEV: SQLite (file:./dev.db). PROD: cambiar provider a "postgresql" y el
+// DATABASE_URL de Neon en Vercel. Los campos JSON se guardan como String
+// (texto JSON) para ser compatibles entre SQLite y Postgres.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Administrador único del panel /admin
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String // hash bcrypt
+  name      String   @default("Administrador")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+/// Configuración global del sitio (fila única, id = "singleton")
+model SiteSettings {
+  id        String @id @default("singleton")
+  siteName  String @default("Villarroel & Asociados Consultora")
+  logoUrl   String @default("/logo.svg")
+
+  // WhatsApp
+  whatsappEnabled    Boolean @default(true)
+  whatsappNumber     String  @default("549263346645")
+  whatsappMessage    String  @default("Hola Villarroel & Asociados, quiero realizar una consulta sobre [servicio/tema]. Mi nombre es [nombre] y represento a [organización].")
+  whatsappButtonText String  @default("Contactar")
+  whatsappFloating   Boolean @default(true)
+  whatsappCtaEnabled Boolean @default(true)
+
+  // Formulario de contacto
+  contactRecipientEmail String @default("info@villarroelyasoc.com.ar")
+
+  // Meta Pixel
+  metaPixelEnabled Boolean @default(false)
+  metaPixelId      String  @default("")
+
+  // Google
+  googleTagManagerEnabled Boolean @default(false)
+  googleTagManagerId      String  @default("")
+  googleAnalyticsEnabled  Boolean @default(false)
+  googleAnalyticsId       String  @default("")
+  googleAdsEnabled        Boolean @default(false)
+  googleAdsConversionId   String  @default("")
+  googleAdsConversionLabel String @default("")
+
+  updatedAt DateTime @updatedAt
+}
+
+/// Contenido editable por página pública.
+/// `sections` es un objeto JSON (clave -> valor) serializado como String.
+model PageContent {
+  id             String   @id @default(cuid())
+  slug           String   @unique // "inicio", "servicios", "quienes-somos", etc.
+  name           String // Nombre legible en el panel
+  seoTitle       String   @default("")
+  seoDescription String   @default("")
+  ogTitle        String   @default("")
+  ogDescription  String   @default("")
+  ogImage        String   @default("")
+  sections       String   @default("{}") // JSON: { "clave": "valor", ... }
+  updatedAt      DateTime @updatedAt
+}
+
+/// Notas / artículos de la sección Recursos
+model ResourcePost {
+  id             String    @id @default(cuid())
+  title          String
+  slug           String    @unique
+  excerpt        String    @default("")
+  content        String    @default("") // HTML sanitizado
+  featuredImage  String    @default("")
+  seoTitle       String    @default("")
+  seoDescription String    @default("")
+  status         String    @default("draft") // "draft" | "published"
+  isFeatured     Boolean   @default(false)
+  category       String    @default("")
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  publishedAt    DateTime?
+}
