@@ -58,7 +58,7 @@ export default function SettingsForm({ settings }: { settings: SiteSettings }) {
         <div className="admin-field">
           <label htmlFor="whatsappNumber">Número de WhatsApp</label>
           <input type="text" id="whatsappNumber" name="whatsappNumber" defaultValue={settings.whatsappNumber} />
-          <span className="admin-hint">Solo dígitos, con código de país y sin símbolos. Ejemplo: 5492633466645</span>
+          <span className="admin-hint">Solo dígitos, con código de país y sin símbolos. Ejemplo: 5492634346645</span>
         </div>
         <div className="admin-field">
           <label htmlFor="whatsappButtonText">Texto del botón</label>

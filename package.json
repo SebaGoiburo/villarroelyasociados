@@ -35,7 +35,9 @@
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "@types/sanitize-html": "^2.16.1",
+    "png-to-ico": "^3.0.1",
     "prisma": "^6.1.0",
+    "sharp": "^0.35.2",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   }

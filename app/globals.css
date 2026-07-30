@@ -135,7 +135,7 @@ strong { color: var(--carbon); font-weight: 700; }
 .site-header .container { display: flex; align-items: center; gap: 20px; height: var(--header-h); }
 .brand { display: flex; align-items: center; gap: 12px; flex: none; }
 /* Logo horizontal: alto fijo, ancho automático para respetar la proporción. */
-.brand__logo { height: 64px; width: auto; max-width: 320px; flex: none; object-fit: contain; }
+.brand__logo { height: 64px; width: auto; max-width: 320px; flex: none; object-fit: contain; border-radius: 10px; }
 /* El nombre ya está incluido en el logo: se oculta el texto para no duplicarlo. */
 .brand__text { display: none; }
 .brand__name { font-weight: 800; font-size: 1.06rem; color: var(--deep-blue); letter-spacing: -.01em; }
@@ -445,3 +445,35 @@ strong { color: var(--carbon); font-weight: 700; }
   .brand__logo { height: 54px; max-width: 220px; }
   .brand--footer .brand__logo { height: 64px; }
 }
+
+/* ---------- Preloader (animación de carga: bolitas → logo) ---------- */
+.preloader{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;
+  background:radial-gradient(820px 480px at 50% 42%,#ffffff,#f3efe7 75%);
+  transition:opacity .6s ease, visibility .6s ease}
+.preloader.is-hidden{opacity:0;visibility:hidden;pointer-events:none}
+.preloader__stage{position:relative;display:grid;place-items:center}
+.preloader__dots{width:120px;height:120px;animation:vaDotsOut .55s ease 1.25s forwards}
+.preloader__dots circle{transform-box:fill-box;transform-origin:center;opacity:0;
+  animation:vaPop .6s cubic-bezier(.34,1.56,.64,1) forwards}
+.preloader__dots .d1{animation-delay:.15s}
+.preloader__dots .d2{animation-delay:.33s}
+.preloader__dots .d3{animation-delay:.51s}
+.preloader__dots .d4{animation-delay:.69s}
+.preloader__dots .d5{animation-delay:.87s}
+.preloader__logo{position:absolute;max-width:min(80vw,440px);height:auto;
+  opacity:0;transform:scale(.92);animation:vaLogoIn .85s cubic-bezier(.2,.7,.2,1) 1.2s forwards;
+  filter:drop-shadow(0 10px 30px rgba(15,34,56,.10))}
+@keyframes vaPop{0%{opacity:0;transform:scale(0)}60%{opacity:1;transform:scale(1.18)}100%{opacity:1;transform:scale(1)}}
+@keyframes vaDotsOut{to{opacity:0;transform:scale(1.25)}}
+@keyframes vaLogoIn{to{opacity:1;transform:scale(1)}}
+@media (prefers-reduced-motion: reduce){
+  .preloader__dots,.preloader__logo{animation:none}
+  .preloader__dots{opacity:0}
+  .preloader__logo{opacity:1;transform:none}
+}
+
+/* ---------- Fotos reales del sitio (reemplazan placeholders) ---------- */
+.hero__media.has-photo, .portrait.has-photo {
+  position: relative; padding: 0; overflow: hidden;
+}
+.hero__media.has-photo img, .portrait.has-photo img { border-radius: inherit; }

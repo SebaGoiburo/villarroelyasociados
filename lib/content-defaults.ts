@@ -144,6 +144,11 @@ export const PAGE_DEFAULTS: PageDefault[] = [
       "director.role": "Director General",
       "director.text":
         "Profesional a cargo de la dirección de Villarroel & Asociados Consultora. Desde 2004 impulsa una visión de asesoramiento integral orientada a la gestión, el cumplimiento, la innovación y el desarrollo sostenible de organizaciones.",
+      "soledad.eyebrow": "Equipo profesional",
+      "soledad.name": "Cra. María Soledad Villarroel",
+      "soledad.role": "Contadora Pública",
+      "soledad.text":
+        "Contadora pública integrante del equipo profesional de Villarroel & Asociados Consultora. Acompaña a empresas, PyMEs, emprendedores y entidades en la gestión contable e impositiva, con una atención cercana, rigurosa y orientada a soluciones concretas para cada organización.",
       "ctaFinal.title":
         "¿Buscás un acompañamiento profesional para ordenar y fortalecer tu organización?",
       "ctaFinal.text":
@@ -272,8 +277,8 @@ export const PAGE_DEFAULTS: PageDefault[] = [
         "Contanos qué necesitás y te orientamos sobre los próximos pasos. Podés escribirnos por WhatsApp o completar el formulario. Revisaremos tu consulta y te responderemos dentro del horario de atención.",
       "data.title": "Datos de contacto",
       "data.address": "Albuera 21, 1° Piso, Oficina A, San Martín, Mendoza, Argentina",
-      "data.phone": "+54 9 263 346-6645",
-      "data.email": "info@villarroelyasoc.com.ar",
+      "data.phone": "+54 9 2634 34-6645",
+      "data.email": "info@villarroelyasociados.com.ar",
       "data.hours": "Lunes a viernes de 9:00 a 16:00",
       "data.modality": "Atención presencial y virtual",
       "form.title": "Enviá tu consulta",

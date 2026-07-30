@@ -4,6 +4,7 @@ import { getSettings } from "@/lib/settings";
 import { getPageContent } from "@/lib/content";
 import { buildWhatsappUrl } from "@/lib/whatsapp";
 import CtaBand from "@/components/CtaBand";
+import SitePhoto from "@/components/SitePhoto";
 
 export async function generateMetadata(): Promise<Metadata> {
   const c = await getPageContent("quienes-somos");
@@ -42,9 +43,12 @@ export default async function QuienesSomosPage() {
       <section className="section">
         <div className="container">
           <div className="about-grid">
-            <div className="portrait reveal" aria-hidden="true">
-              <span>Espacio para foto profesional del Dr. Juan Antonio Villarroel / equipo</span>
-            </div>
+            <SitePhoto
+              file="equipo-villarroel"
+              alt="Oficina de Villarroel & Asociados Consultora en San Martín, Mendoza"
+              variant="portrait"
+              placeholder="Espacio para foto profesional del equipo / oficina"
+            />
             <div className="reveal">
               <span className="eyebrow">{c("history.eyebrow")}</span>
               <h2>{c("history.title")}</h2>
@@ -95,18 +99,41 @@ export default async function QuienesSomosPage() {
       <section className="section section--gray">
         <div className="container">
           <div className="about-grid">
-            <div className="portrait reveal" aria-hidden="true">
-              <span>Espacio para foto profesional del Dr. Juan Antonio Villarroel — Director General</span>
-            </div>
+            <SitePhoto
+              file="juan-villarroel"
+              alt="Dr. Juan Antonio Villarroel, Director General de Villarroel & Asociados Consultora"
+              variant="portrait"
+              placeholder="Espacio para foto profesional del Dr. Juan Antonio Villarroel — Director General"
+            />
             <div className="reveal">
               <span className="eyebrow">{c("director.eyebrow")}</span>
               <h2>{c("director.name")}</h2>
               <p style={{ fontWeight: 700, color: "var(--blue)", marginTop: 4 }}>{c("director.role")}</p>
               <p className="mt-2">{c("director.text")}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* EQUIPO — CRA. MARÍA SOLEDAD VILLARROEL */}
+      <section className="section">
+        <div className="container">
+          <div className="about-grid">
+            <div className="reveal">
+              <span className="eyebrow">{c("soledad.eyebrow")}</span>
+              <h2>{c("soledad.name")}</h2>
+              <p style={{ fontWeight: 700, color: "var(--blue)", marginTop: 4 }}>{c("soledad.role")}</p>
+              <p className="mt-2">{c("soledad.text")}</p>
               <div className="mt-3">
                 <Link className="btn btn--primary" href="/servicios">Ver nuestros servicios</Link>
               </div>
             </div>
+            <SitePhoto
+              file="soledad-villarroel"
+              alt="Cra. María Soledad Villarroel, Contadora Pública de Villarroel & Asociados Consultora"
+              variant="portrait"
+              placeholder="Espacio para foto profesional de la Cra. María Soledad Villarroel"
+            />
           </div>
         </div>
       </section>

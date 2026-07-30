@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import SiteAnalytics from "@/components/SiteAnalytics";
 import Pixels, { GtmNoScript } from "@/components/Pixels";
+import Preloader from "@/components/Preloader";
 
 export default async function PublicLayout({
   children,
@@ -18,6 +19,7 @@ export default async function PublicLayout({
     <>
       <Pixels settings={settings} />
       <GtmNoScript settings={settings} />
+      <Preloader logoUrl="/logo_principal.svg" />
 
       <a className="skip-link" href="#main">Saltar al contenido</a>
 

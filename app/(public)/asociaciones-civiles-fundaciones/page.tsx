@@ -6,6 +6,7 @@ import { buildWhatsappUrl } from "@/lib/whatsapp";
 import { WhatsAppIcon, ArrowRight } from "@/components/Icons";
 import Faq from "@/components/Faq";
 import CtaBand from "@/components/CtaBand";
+import SitePhoto from "@/components/SitePhoto";
 
 export async function generateMetadata(): Promise<Metadata> {
   const c = await getPageContent("asociaciones-civiles-fundaciones");
@@ -52,9 +53,12 @@ export default async function AsociacionesPage() {
                 <a className="btn btn--outline-light btn--lg" href="#acompanar">Cómo podemos ayudar</a>
               </div>
             </div>
-            <div className="hero__media" aria-hidden="true">
-              <span className="ph-label">Espacio para imagen de reunión / comisión directiva (overlay azul sutil)</span>
-            </div>
+            <SitePhoto
+              file="asociaciones-reunion"
+              alt="Asesoramiento a asociaciones civiles y fundaciones en Mendoza"
+              variant="hero"
+              placeholder="Espacio para imagen de reunión / comisión directiva"
+            />
           </div>
         </div>
       </section>

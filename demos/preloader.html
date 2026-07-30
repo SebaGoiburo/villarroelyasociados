@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vista previa — Animación de carga · Villarroel & Asociados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#009CDE; --red:#D22630; --green:#009F4D; --orange:#FF9E1B; --teal:#00B398;
+    --deep:#0F2238;
+  }
+  *{box-sizing:border-box;margin:0}
+  body{font-family:"Hanken Grotesk",system-ui,sans-serif;background:#0a1726;color:#fff;min-height:100vh}
+
+  /* Página simulada detrás del preloader */
+  .fake-site{position:fixed;inset:0;display:grid;place-items:center;text-align:center;
+    background:radial-gradient(900px 500px at 70% -10%,rgba(0,156,222,.15),transparent 60%),var(--deep);padding:24px}
+  .fake-site h1{font-size:clamp(1.6rem,4vw,2.6rem);max-width:18ch;line-height:1.15;letter-spacing:-.02em}
+  .fake-site p{color:#9fb0c2;margin-top:14px}
+  .fake-tag{color:var(--teal);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.8rem;margin-bottom:14px}
+
+  /* ---------- PRELOADER ---------- */
+  .preloader{position:fixed;inset:0;z-index:10;display:grid;place-items:center;
+    background:radial-gradient(820px 480px at 50% 40%,#ffffff,#f3efe7 75%);
+    transition:opacity .7s ease, visibility .7s ease}
+  .preloader.done{opacity:0;visibility:hidden}
+
+  .lockup{display:flex;align-items:center;gap:26px;transform:translateY(-2%)}
+  .mark{width:118px;height:118px;flex:none;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35))}
+  .mark circle{transform-box:fill-box;transform-origin:center;opacity:0}
+
+  .word{}
+  .word h1{font-weight:800;font-size:46px;letter-spacing:-.02em;line-height:.95;color:#15171a;
+    opacity:0;transform:translateY(16px)}
+  .word .sub{display:block;font-weight:800;font-size:21px;letter-spacing:.02em;color:#2D2926;margin-top:6px;
+    opacity:0;transform:translateY(14px)}
+  .word .tag{display:block;font-weight:700;font-size:11px;letter-spacing:.34em;text-transform:uppercase;
+    color:var(--blue);margin-top:10px;opacity:0;transform:translateY(10px)}
+
+  /* línea de progreso sutil */
+  .bar{position:absolute;bottom:14%;left:50%;transform:translateX(-50%);width:140px;height:3px;
+    background:rgba(15,34,56,.10);border-radius:2px;overflow:hidden;opacity:0}
+  .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--teal));border-radius:2px}
+
+  /* ---------- Animaciones (se activan con .run) ---------- */
+  @keyframes pop{0%{opacity:0;transform:scale(0)}60%{opacity:1;transform:scale(1.18)}100%{opacity:1;transform:scale(1)}}
+  @keyframes rise{to{opacity:1;transform:translateY(0)}}
+  @keyframes barIn{to{opacity:1}}
+  @keyframes fill{to{width:100%}}
+
+  .run .mark .c1{animation:pop .62s cubic-bezier(.34,1.56,.64,1) .15s forwards}
+  .run .mark .c2{animation:pop .62s cubic-bezier(.34,1.56,.64,1) .33s forwards}
+  .run .mark .c3{animation:pop .62s cubic-bezier(.34,1.56,.64,1) .51s forwards}
+  .run .mark .c4{animation:pop .62s cubic-bezier(.34,1.56,.64,1) .69s forwards}
+  .run .mark .c5{animation:pop .62s cubic-bezier(.34,1.56,.64,1) .87s forwards}
+  .run .word h1{animation:rise .7s cubic-bezier(.2,.7,.2,1) 1.0s forwards}
+  .run .word .sub{animation:rise .7s cubic-bezier(.2,.7,.2,1) 1.18s forwards}
+  .run .word .tag{animation:rise .7s cubic-bezier(.2,.7,.2,1) 1.36s forwards}
+  .run .bar{animation:barIn .4s ease .2s forwards}
+  .run .bar i{animation:fill 2.4s cubic-bezier(.4,.1,.2,1) .2s forwards}
+
+  /* Controles de la demo (no van en el sitio real) */
+  .demo-ui{position:fixed;top:16px;left:0;right:0;z-index:20;text-align:center;pointer-events:none}
+  .demo-ui span{background:rgba(0,0,0,.4);color:#cfe0ee;font-size:.8rem;padding:6px 14px;border-radius:999px}
+  .replay{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:20;
+    background:#fff;color:var(--deep);border:0;font-weight:700;padding:12px 22px;border-radius:999px;cursor:pointer;
+    font-family:inherit;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+  .replay:hover{transform:translateX(-50%) translateY(-2px)}
+
+  @media(max-width:560px){
+    .lockup{flex-direction:column;gap:18px;text-align:center}
+    .mark{width:96px;height:96px}
+    .word h1{font-size:34px}.word .sub{font-size:17px}
+  }
+</style>
+</head>
+<body>
+
+  <div class="demo-ui"><span>Vista previa de la animación de carga — tocá “Volver a reproducir”</span></div>
+
+  <!-- Sitio simulado detrás -->
+  <section class="fake-site">
+    <div>
+      <div class="fake-tag">Estudio contable y consultora integral · San Martín, Mendoza</div>
+      <h1>Consultoría contable, impositiva y organizacional para tomar mejores decisiones.</h1>
+      <p>(Acá ya estaría cargado el sitio)</p>
+    </div>
+  </section>
+
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <div class="lockup" id="stage">
+      <svg class="mark" viewBox="0 0 64 64" aria-label="Villarroel y Asociados">
+        <circle class="c1" cx="24" cy="14" r="9"  fill="#009CDE"/>
+        <circle class="c2" cx="20" cy="34" r="8"  fill="#D22630"/>
+        <circle class="c5" cx="38" cy="42" r="10" fill="#009F4D"/>
+        <circle class="c4" cx="42" cy="22" r="6"  fill="#FF9E1B"/>
+        <circle class="c3" cx="50" cy="12" r="5"  fill="#00B398"/>
+      </svg>
+      <div class="word">
+        <h1>VILLARROEL</h1>
+        <span class="sub">&amp; ASOCIADOS</span>
+        <span class="tag">Consultora</span>
+      </div>
+    </div>
+    <div class="bar"><i></i></div>
+  </div>
+
+  <button class="replay" id="replay">↻ Volver a reproducir</button>
+
+<script>
+  const preloader = document.getElementById('preloader');
+  const stage = document.getElementById('stage');
+  const bar = preloader.querySelector('.bar');
+  let t;
+  function run(){
+    preloader.classList.remove('done');
+    [stage, bar].forEach(el=>{ el.classList.remove('run'); });
+    // forzar reflow para reiniciar animaciones
+    void preloader.offsetWidth;
+    preloader.classList.add('run'); // .run sobre el preloader activa todo
+    clearTimeout(t);
+    t = setTimeout(()=> preloader.classList.add('done'), 3000);
+  }
+  // .run debe estar en el contenedor que envuelve los selectores
+  // (usamos preloader como ancestro .run)
+  document.getElementById('replay').addEventListener('click', run);
+  run();
+</script>
+</body>
+</html>

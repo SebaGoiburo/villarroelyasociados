@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   description:
     "Consultora contable, impositiva y organizacional para empresas, PyMEs, asociaciones civiles y fundaciones en Mendoza.",
   openGraph: { locale: "es_AR", type: "website" },
+  other: {
+    "facebook-domain-verification": "fqk4vnunkdmxl1wb7nagjzrilyhbpz",
+  },
 };
 
 export default function RootLayout({

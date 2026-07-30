@@ -8,6 +8,7 @@ import { ServiceIcon } from "@/components/ServiceIcon";
 import { WhatsAppIcon, ArrowRight, ClockIcon } from "@/components/Icons";
 import Faq from "@/components/Faq";
 import CtaBand from "@/components/CtaBand";
+import SitePhoto from "@/components/SitePhoto";
 
 export async function generateMetadata(): Promise<Metadata> {
   const c = await getPageContent("inicio");
@@ -59,11 +60,12 @@ export default async function HomePage() {
                 <ClockIcon width={16} height={16} /> {c("hero.micro")}
               </p>
             </div>
-            <div className="hero__media" aria-hidden="true">
-              <span className="ph-label">
-                Espacio para foto profesional del equipo u oficina de Villarroel &amp; Asociados
-              </span>
-            </div>
+            <SitePhoto
+              file="equipo-hero"
+              alt="Villarroel & Asociados Consultora, estudio contable en San Martín, Mendoza"
+              variant="hero"
+              placeholder="Espacio para foto profesional del equipo u oficina de Villarroel & Asociados"
+            />
           </div>
         </div>
       </section>
@@ -186,9 +188,12 @@ export default async function HomePage() {
       <section className="section">
         <div className="container">
           <div className="about-grid">
-            <div className="portrait reveal" aria-hidden="true">
-              <span>Espacio para foto institucional / equipo de Villarroel &amp; Asociados</span>
-            </div>
+            <SitePhoto
+              file="oficina-villarroel"
+              alt="Oficina de Villarroel & Asociados Consultora con el logo institucional en San Martín, Mendoza"
+              variant="portrait"
+              placeholder="Espacio para foto institucional / equipo de Villarroel & Asociados"
+            />
             <div className="reveal">
               <span className="eyebrow">{c("about.eyebrow")}</span>
               <h2>{c("about.title")}</h2>

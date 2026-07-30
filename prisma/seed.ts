@@ -8,7 +8,7 @@ async function main() {
   console.log("🌱 Seed: iniciando...");
 
   // 1) Administrador único (desde variables de entorno)
-  const adminEmail = process.env.ADMIN_EMAIL || "admin@villarroelyasoc.com.ar";
+  const adminEmail = process.env.ADMIN_EMAIL || "admin@villarroelyasociados.com.ar";
   const adminPassword = process.env.ADMIN_PASSWORD || "villarroel2024";
   const passwordHash = await bcrypt.hash(adminPassword, 12);
 

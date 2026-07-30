@@ -21,7 +21,7 @@ npm run dev            # http://localhost:3000  ·  panel en /admin
 ```
 
 Credenciales de admin (dev, definidas en `.env`):
-`admin@villarroelyasoc.com.ar` / `villarroel2024`
+`admin@villarroelyasociados.com.ar` / (contraseña: ver `.env`)
 
 ## Scripts
 

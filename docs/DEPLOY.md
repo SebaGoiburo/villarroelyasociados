@@ -22,10 +22,10 @@ Pasos para publicar el sitio. Requiere cuentas (gratuitas) en Neon, Resend y Ver
 ## 2. Email — Resend
 
 1. Crear cuenta en https://resend.com y generar una **API key**.
-2. (Recomendado) Verificar el dominio `villarroelyasoc.com.ar` agregando los
+2. (Recomendado) Verificar el dominio `villarroelyasociados.com.ar` agregando los
    registros **SPF/DKIM** que indica Resend en el DNS. Sin esto, usar el remitente
    de prueba `onboarding@resend.dev`.
-3. Definir `RESEND_API_KEY` y `EMAIL_FROM` (ej. `Villarroel & Asociados <info@villarroelyasoc.com.ar>`).
+3. Definir `RESEND_API_KEY` y `EMAIL_FROM` (ej. `Villarroel & Asociados <info@villarroelyasociados.com.ar>`).
 
 ## 3. Imágenes — Vercel Blob
 
@@ -40,12 +40,12 @@ Pasos para publicar el sitio. Requiere cuentas (gratuitas) en Neon, Resend y Ver
    ```
    DATABASE_URL            (Neon)
    AUTH_SECRET             (string largo aleatorio; generar uno nuevo para prod)
-   ADMIN_EMAIL             admin@villarroelyasoc.com.ar
+   ADMIN_EMAIL             admin@villarroelyasociados.com.ar
    ADMIN_PASSWORD          (contraseña fuerte; solo se usa en el seed)
    RESEND_API_KEY          (Resend)
-   EMAIL_FROM              Villarroel & Asociados <info@villarroelyasoc.com.ar>
+   EMAIL_FROM              Villarroel & Asociados <info@villarroelyasociados.com.ar>
    BLOB_READ_WRITE_TOKEN   (Vercel Blob)
-   NEXT_PUBLIC_SITE_URL    https://www.villarroelyasoc.com.ar
+   NEXT_PUBLIC_SITE_URL    https://www.villarroelyasociados.com.ar
    ```
 3. Deploy. El `build` corre `prisma generate` automáticamente.
 4. Una vez con la DB de Neon conectada, correr el seed una sola vez (localmente

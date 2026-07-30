@@ -105,7 +105,7 @@ Slugs de páginas: `inicio`, `quienes-somos`, `servicios`,
 ```
 DATABASE_URL          dev: file:./dev.db | prod: postgresql://... (Neon)
 AUTH_SECRET           secreto largo aleatorio (firma JWT)
-ADMIN_EMAIL           admin@villarroelyasoc.com.ar
+ADMIN_EMAIL           admin@villarroelyasociados.com.ar
 ADMIN_PASSWORD        villarroel2024 (DEV; se hashea en el seed)
 RESEND_API_KEY        (Etapa 7)
 EMAIL_FROM            remitente verificado en Resend
@@ -129,12 +129,12 @@ server con el archivo abierto → `taskkill //F //IM node.exe` y reintentar.
 
 ## 7. Credenciales de prueba
 
-- Panel: `admin@villarroelyasoc.com.ar` / `villarroel2024` (definidas en `.env`).
+- Panel: `admin@villarroelyasociados.com.ar` / (contraseña en `.env`).
 
 ## 8. Datos de marca (NAP)
 
 - Dirección: Albuera 21, 1° Piso, Oficina A, San Martín, Mendoza, Argentina
-- Email: info@villarroelyasoc.com.ar
+- Email: info@villarroelyasociados.com.ar
 - WhatsApp/Tel: +54 9 263 346-6645 · link base `https://wa.me/549263346645`
 - Horario: lunes a viernes 9:00–16:00 · Presencial y virtual · Desde 2004
 - Director: Dr. Juan Antonio Villarroel

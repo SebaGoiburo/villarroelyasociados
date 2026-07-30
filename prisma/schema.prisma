@@ -30,14 +30,14 @@ model SiteSettings {
 
   // WhatsApp
   whatsappEnabled    Boolean @default(true)
-  whatsappNumber     String  @default("549263346645")
+  whatsappNumber     String  @default("5492634346645")
   whatsappMessage    String  @default("Hola Villarroel & Asociados, quiero realizar una consulta sobre [servicio/tema]. Mi nombre es [nombre] y represento a [organización].")
   whatsappButtonText String  @default("Contactar")
   whatsappFloating   Boolean @default(true)
   whatsappCtaEnabled Boolean @default(true)
 
   // Formulario de contacto
-  contactRecipientEmail String @default("info@villarroelyasoc.com.ar")
+  contactRecipientEmail String @default("info@villarroelyasociados.com.ar")
 
   // Meta Pixel
   metaPixelEnabled Boolean @default(false)

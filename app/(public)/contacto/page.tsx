@@ -29,7 +29,7 @@ export default async function ContactoPage() {
     "@type": ["LocalBusiness", "AccountingService", "ProfessionalService"],
     name: "Villarroel & Asociados Consultora",
     url: `${siteUrl}/contacto`,
-    telephone: "+5492633466645",
+    telephone: "+5492634346645",
     email,
     address: {
       "@type": "PostalAddress",

@@ -72,7 +72,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
             <ul className="footer-contact">
               <li><MapPinIcon /><span>Albuera 21, 1° Piso, Of. A,<br />San Martín, Mendoza, Argentina</span></li>
               <li><MailIcon /><a href={`mailto:${settings.contactRecipientEmail}`}>{settings.contactRecipientEmail}</a></li>
-              <li><PhoneIcon /><a href="tel:+5492633466645">+54 9 263 346-6645</a></li>
+              <li><PhoneIcon /><a href={`tel:+${settings.whatsappNumber}`}>+54 9 2634 34-6645</a></li>
               <li><ClockIcon /><span>Lunes a viernes de 9:00 a 16:00</span></li>
             </ul>
           </div>
