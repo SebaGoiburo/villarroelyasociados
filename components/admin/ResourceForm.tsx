@@ -3,6 +3,7 @@
 import { useActionState, useState, useTransition } from "react";
 import Link from "next/link";
 import { createPost, updatePost, deletePost, type ResourceState } from "@/app/admin/(panel)/recursos/actions";
+import RichTextEditor from "./RichTextEditor";
 
 /** Comprime una imagen en el navegador (máx 1600px, JPEG) para no superar el
  *  límite de subida del servidor. Devuelve un File liviano listo para enviar. */
@@ -97,9 +98,9 @@ export default function ResourceForm({ post }: { post?: PostData }) {
             <span className="admin-hint">Resumen breve que aparece en la lista de Recursos.</span>
           </div>
           <div className="admin-field">
-            <label htmlFor="content">Contenido (Markdown)</label>
-            <textarea id="content" name="content" defaultValue={post?.content || ""} rows={14} style={{ fontFamily: "ui-monospace, monospace", fontSize: ".9rem" }} />
-            <span className="admin-hint">Formato Markdown: <code>## Subtítulo</code>, <code>**negrita**</code>, <code>- lista</code>, <code>[link](https://...)</code>. Se sanitiza automáticamente al publicar.</span>
+            <label>Contenido de la nota</label>
+            <RichTextEditor name="content" initialHTML={post?.content || ""} />
+            <span className="admin-hint">Escribí normalmente y usá los botones de arriba para dar formato (títulos, negrita, listas, enlaces).</span>
           </div>
         </div>
 

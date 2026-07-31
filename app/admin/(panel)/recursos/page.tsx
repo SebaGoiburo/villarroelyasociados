@@ -32,12 +32,7 @@ export default async function RecursosAdminPage() {
           <ol style={{ paddingLeft: 20, listStyle: "decimal" }}>
             <li>Tocá <strong>«+ Nueva nota»</strong> (arriba a la derecha).</li>
             <li>Completá el <strong>Título</strong> y el <strong>Extracto</strong> (resumen corto que se ve en la tarjeta).</li>
-            <li>Escribí el <strong>Contenido</strong> en formato Markdown:
-              <code style={{ margin: "0 4px" }}>## Subtítulo</code>,
-              <code style={{ margin: "0 4px" }}>**negrita**</code>,
-              <code style={{ margin: "0 4px" }}>- lista</code>,
-              <code style={{ margin: "0 4px" }}>[texto](https://enlace)</code>.
-            </li>
+            <li>Escribí el <strong>Contenido</strong> normalmente. Usá los <strong>botones de formato</strong> de arriba del editor para poner títulos, negrita, listas o enlaces (como en Word).</li>
             <li><strong>Imagen destacada</strong> (opcional): subí una foto. Se comprime sola, no importa si es pesada.</li>
             <li className="admin-badge admin-badge--on" style={{ display: "inline-block", padding: "6px 12px", margin: "6px 0" }}>
               ⚠️ Clave: en <strong>Estado</strong>, elegí <strong>«Publicada»</strong>. Si queda en «Borrador», <u>no aparece</u> en el sitio.

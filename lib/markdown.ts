@@ -6,8 +6,8 @@ marked.setOptions({ breaks: true, gfm: true });
 const SANITIZE_OPTS: sanitizeHtml.IOptions = {
   allowedTags: [
     "h2", "h3", "h4", "p", "a", "ul", "ol", "li", "blockquote",
-    "strong", "em", "br", "hr", "img", "code", "pre", "table",
-    "thead", "tbody", "tr", "th", "td",
+    "strong", "em", "b", "i", "u", "br", "hr", "img", "code", "pre",
+    "div", "span", "table", "thead", "tbody", "tr", "th", "td",
   ],
   allowedAttributes: {
     a: ["href", "title", "target", "rel"],
@@ -15,6 +15,9 @@ const SANITIZE_OPTS: sanitizeHtml.IOptions = {
   },
   allowedSchemes: ["http", "https", "mailto", "tel"],
   transformTags: {
+    // Normalizar lo que produce el editor visual a etiquetas limpias.
+    b: "strong",
+    i: "em",
     a: sanitizeHtml.simpleTransform("a", { rel: "noopener noreferrer", target: "_blank" }),
   },
 };

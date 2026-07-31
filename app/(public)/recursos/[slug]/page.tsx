@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { getSettings } from "@/lib/settings";
 import { buildWhatsappUrl } from "@/lib/whatsapp";
 import { prisma } from "@/lib/prisma";
-import { renderMarkdown } from "@/lib/markdown";
+import { sanitize } from "@/lib/markdown";
 import { WhatsAppIcon } from "@/components/Icons";
 
 export const dynamic = "force-dynamic";
@@ -110,7 +110,7 @@ export default async function ResourcePostPage({
           )}
           <article
             className="prose"
-            dangerouslySetInnerHTML={{ __html: renderMarkdown(post.content) }}
+            dangerouslySetInnerHTML={{ __html: sanitize(post.content) }}
           />
 
           <div className="cta-band reveal" style={{ marginTop: 48 }}>
