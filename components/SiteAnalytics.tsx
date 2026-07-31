@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 /**
  * Listeners globales de conversión + animaciones de scroll.
@@ -36,6 +37,8 @@ export function fireAdsConversion() {
 }
 
 export default function SiteAnalytics() {
+  const pathname = usePathname();
+
   useEffect(() => {
     function onClick(e: MouseEvent) {
       const target = e.target as HTMLElement | null;
@@ -59,28 +62,41 @@ export default function SiteAnalytics() {
     return () => document.removeEventListener("click", onClick);
   }, []);
 
-  // Reveal on scroll
+  // Reveal on scroll — se re-ejecuta en cada cambio de página (navegación por menú),
+  // no solo en la carga inicial. Así los bloques nuevos siempre se hacen visibles.
   useEffect(() => {
-    const els = document.querySelectorAll(".reveal");
-    if (!els.length) return;
-    if (!("IntersectionObserver" in window)) {
-      els.forEach((el) => el.classList.add("in"));
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in");
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  });
+    const reveal = () => {
+      const els = document.querySelectorAll(".reveal:not(.in)");
+      if (!els.length) return;
+      if (!("IntersectionObserver" in window)) {
+        els.forEach((el) => el.classList.add("in"));
+        return null;
+      }
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in");
+              io.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12 }
+      );
+      els.forEach((el) => io.observe(el));
+      return io;
+    };
+    // Esperar a que el DOM de la nueva página esté montado.
+    const raf = requestAnimationFrame(() => {
+      const io = reveal();
+      (window as unknown as { __vaReveal?: IntersectionObserver | null }).__vaReveal = io;
+    });
+    return () => {
+      cancelAnimationFrame(raf);
+      const io = (window as unknown as { __vaReveal?: IntersectionObserver | null }).__vaReveal;
+      if (io) io.disconnect();
+    };
+  }, [pathname]);
 
   return null;
 }
