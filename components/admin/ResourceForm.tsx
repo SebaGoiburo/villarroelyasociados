@@ -1,8 +1,34 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useState, useTransition } from "react";
 import Link from "next/link";
 import { createPost, updatePost, deletePost, type ResourceState } from "@/app/admin/(panel)/recursos/actions";
+
+/** Comprime una imagen en el navegador (máx 1600px, JPEG) para no superar el
+ *  límite de subida del servidor. Devuelve un File liviano listo para enviar. */
+async function compressImage(file: File): Promise<File> {
+  if (!file.type.startsWith("image/") || file.type === "image/svg+xml") return file;
+  try {
+    const bitmap = await createImageBitmap(file);
+    const maxSide = 1600;
+    const scale = Math.min(1, maxSide / Math.max(bitmap.width, bitmap.height));
+    const w = Math.round(bitmap.width * scale);
+    const h = Math.round(bitmap.height * scale);
+    const canvas = document.createElement("canvas");
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return file;
+    ctx.drawImage(bitmap, 0, 0, w, h);
+    const blob: Blob | null = await new Promise((res) =>
+      canvas.toBlob((b) => res(b), "image/jpeg", 0.82)
+    );
+    if (!blob) return file;
+    return new File([blob], file.name.replace(/\.[^.]+$/, "") + ".jpg", { type: "image/jpeg" });
+  } catch {
+    return file; // si algo falla, se envía el original
+  }
+}
 
 type PostData = {
   id?: string;
@@ -24,12 +50,28 @@ export default function ResourceForm({ post }: { post?: PostData }) {
   const action = isEdit ? updatePost : createPost;
   const [state, formAction, pending] = useActionState<ResourceState, FormData>(action, {});
   const [imgPreview, setImgPreview] = useState(post?.featuredImage || "");
+  const [processing, startTransition] = useTransition();
+  const busy = pending || processing;
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const file = fd.get("featuredImage");
+    if (file instanceof File && file.size > 0) {
+      const compressed = await compressImage(file);
+      fd.set("featuredImage", compressed, compressed.name);
+    } else {
+      // sin imagen nueva: no enviar un File vacío
+      fd.delete("featuredImage");
+    }
+    startTransition(() => formAction(fd));
+  }
 
   return (
     <>
       {state.error && <div className="admin-alert admin-alert--error">{state.error}</div>}
 
-      <form action={formAction}>
+      <form onSubmit={handleSubmit}>
         {isEdit && <input type="hidden" name="id" value={post!.id} />}
 
         <div className="admin-actions" style={{ marginBottom: 16, justifyContent: "space-between" }}>
@@ -120,8 +162,8 @@ export default function ResourceForm({ post }: { post?: PostData }) {
         </div>
 
         <div className="admin-actions" style={{ justifyContent: "space-between" }}>
-          <button type="submit" className="admin-btn admin-btn--primary" disabled={pending}>
-            {pending ? "Guardando…" : isEdit ? "Guardar cambios" : "Crear nota"}
+          <button type="submit" className="admin-btn admin-btn--primary" disabled={busy}>
+            {busy ? "Guardando…" : isEdit ? "Guardar cambios" : "Crear nota"}
           </button>
         </div>
       </form>
